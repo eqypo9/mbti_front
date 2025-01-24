@@ -28,6 +28,7 @@ export default function QuestionPage() {
   const [answerRecords, setAnswerRecords] = useState<AnswerRecord[]>([]);
   const currentQuestion = questions[currentQuestionIndex];
 
+  // Username 초기화
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams(window.location.search);
@@ -36,6 +37,7 @@ export default function QuestionPage() {
     }
   }, []);
 
+  // 답변 클릭 처리
   const handleAnswerClick = (answerText: string, type: MbtiType) => {
     setMbtiScores((prev) => ({ ...prev, [type]: prev[type] + 1 }));
     setAnswerRecords((prev) => [
@@ -55,6 +57,7 @@ export default function QuestionPage() {
     }
   };
 
+  // MBTI 결과 계산
   const calculateMbti = () => {
     const result =
       (mbtiScores.E >= mbtiScores.I ? 'E' : 'I') +
@@ -99,12 +102,16 @@ export default function QuestionPage() {
           <Image
             src='/images/test-one.png'
             alt='Sad'
-            className='w-60 h-60 object-contain'
+            className='object-contain'
+            width={240}
+            height={300}
           />
           <Image
             src='/images/test-two.png'
             alt='Happy'
-            className='w-60 h-60 object-contain'
+            className='object-contain'
+            width={240}
+            height={300}
           />
         </div>
 
@@ -113,7 +120,8 @@ export default function QuestionPage() {
           {currentQuestion.answers.map((answer, index) => (
             <button
               key={index}
-              className={`px-6 py-3 text-white font-medium text-lg rounded-md hover:opacity-90 ${answer.color}`}
+              style={{ backgroundColor: answer.color }}
+              className='px-6 py-3 text-white font-medium text-lg rounded-md hover:opacity-90'
               onClick={() => handleAnswerClick(answer.text, answer.type)}
             >
               {answer.text}

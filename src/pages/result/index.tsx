@@ -100,7 +100,8 @@ function ResultContent() {
             <Image
               src='/images/test-cake.png'
               alt='테스트 케이크'
-              className='w-32 h-32 object-contain'
+              width={180}
+              height={180}
             />
           </div>
 

@@ -1,17 +1,15 @@
-export type MbtiType =
-  | 'E'
-  | 'I'
-  | 'S'
-  | 'N'
-  | 'T'
-  | 'F'
-  | 'J'
-  | 'P';
+export type MbtiType = 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P';
+
+export type Answer = {
+  text: string;
+  type: MbtiType;
+  color: string;
+};
 
 export type Question = {
   id: number;
   question: string;
-  answers: { text: string; type: MbtiType; color: string }[];
+  answers: Answer[];
 };
 
 export type DetailedMbtiType =
