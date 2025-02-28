@@ -65,7 +65,12 @@ function ResultContent() {
           <SlideContent currentSlide={slides[currentIndex]} />
         </div>
 
-        <NavigationButtons onPrev={handlePrev} onNext={handleNext} />
+        <NavigationButtons
+          onPrev={handlePrev}
+          onNext={handleNext}
+          currentIndex={currentIndex}
+          totalSlides={slides.length}
+        />
 
         <ActionButtons onDownload={handleSaveImage} />
       </div>

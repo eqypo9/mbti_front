@@ -1,38 +1,51 @@
 import Image from 'next/image';
 
+interface NavigationButtonsProps {
+  onPrev: () => void;
+  onNext: () => void;
+  currentIndex: number;
+  totalSlides: number;
+}
+
 export function NavigationButtons({
   onPrev,
   onNext,
-}: {
-  onPrev: () => void;
-  onNext: () => void;
-}) {
+  currentIndex,
+  totalSlides,
+}: NavigationButtonsProps) {
   return (
     <>
-      <button
-        onClick={onPrev}
-        className='absolute top-1/2 left-0 transform -translate-y-1/2 z-10'
+      <div
+        className={`absolute top-1/2 left-2 transform -translate-y-1/2 z-10 ${
+          currentIndex === 0 ? 'hidden' : ''
+        }`}
       >
-        <Image
-          src='/icons/icon-left.svg'
-          alt='Previous'
-          width={32}
-          height={32}
-          className='sm:w-8 w-6'
-        />
-      </button>
-      <button
-        onClick={onNext}
-        className='absolute top-1/2 right-4 transform -translate-y-1/2 z-10'
+        <button onClick={onPrev}>
+          <Image
+            src='/icons/icon-left.svg'
+            alt='Previous'
+            width={32}
+            height={32}
+            className='sm:w-8 w-6'
+          />
+        </button>
+      </div>
+
+      <div
+        className={`absolute top-1/2 right-2 transform -translate-y-1/2 z-10 ${
+          currentIndex === totalSlides - 1 ? 'hidden' : ''
+        }`}
       >
-        <Image
-          src='/icons/icon-right.svg'
-          alt='Next'
-          width={32}
-          height={32}
-          className='sm:w-8 w-6'
-        />
-      </button>
+        <button onClick={onNext}>
+          <Image
+            src='/icons/icon-right.svg'
+            alt='Next'
+            width={32}
+            height={32}
+            className='sm:w-8 w-6'
+          />
+        </button>
+      </div>
     </>
   );
 }
