@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { useMbti } from '@/hooks/useMbti';
 import ProgressBar from '@/components/ProgressBar/QuestionProgress';
 import QuestionCard from '@/components/QuestionCard';
@@ -8,7 +7,6 @@ import { questions } from '@/data/questions';
 import Image from 'next/image';
 
 export default function QuestionPage() {
-  const router = useRouter();
   const [username, setUsername] = useState('');
 
   useEffect(() => {

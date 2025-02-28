@@ -1,15 +1,18 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface UserProfileProps {
   username: string;
   profileImage: string;
-  onClose: () => void;
 }
-export function UserProfile({
-  username,
-  profileImage,
-  onClose,
-}: UserProfileProps) {
+
+export function UserProfile({ username, profileImage }: UserProfileProps) {
+  const router = useRouter();
+
+  const handleClose = () => {
+    router.push('/');
+  };
+
   return (
     <div className='absolute top-8 left-4 right-4 flex items-center justify-between px-4 z-10'>
       <div className='flex items-center space-x-2'>
@@ -28,7 +31,7 @@ export function UserProfile({
         width={24}
         height={24}
         className='cursor-pointer sm:w-7 w-5'
-        onClick={onClose}
+        onClick={handleClose}
       />
     </div>
   );

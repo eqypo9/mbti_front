@@ -55,11 +55,7 @@ function ResultContent() {
       <div className='relative w-full sm:max-w-[600px] h-full text-white flex flex-col'>
         <ProgressBar currentIndex={currentIndex} total={slides.length} />
 
-        <UserProfile
-          username={username}
-          profileImage={profileImage}
-          onClose={() => router.push('/')}
-        />
+        <UserProfile username={username} profileImage={profileImage} />
 
         <div ref={storyRef} className='relative w-full h-full'>
           <SlideContent currentSlide={slides[currentIndex]} />
