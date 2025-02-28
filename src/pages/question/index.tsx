@@ -77,70 +77,76 @@ export default function QuestionPage() {
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
-    <div className='flex flex-col p-6 justify-center items-center space-y-6 w-full'>
-      {/* 프로그레스 바 */}
-      <div className='relative w-full bg-gray-800 h-6 rounded-full overflow-hidden'>
-        {/* 진행되는 바 */}
-        <div
-          className='h-full bg-white transition-all duration-500 ease-in-out'
-          style={{ width: `${progress}%` }}
-        />
-
-        {/* 프로그레스 바 끝에 체리 아이콘 배치 */}
-        <div
-          className='absolute top-1/2 transform -translate-y-1/2 transition-all duration-500 ease-in-out'
-          style={{ left: `calc(${progress}% - 20px)` }} // 체리가 진행되는 느낌 구현
-        >
-          <Image
-            src='/icons/icon-cherry.svg'
-            alt='Cherry'
-            width={32}
-            height={32}
-            className='object-contain'
+    <div className='relative w-full flex justify-center items-center'>
+      <div className='flex flex-col justify-center items-center p-6 space-y-6'>
+        {/* 프로그레스 바 */}
+        <div className='relative w-full bg-gray-800 h-6 rounded-full overflow-hidden'>
+          {/* 진행 바 */}
+          <div
+            className='h-full bg-white transition-all duration-500 ease-in-out'
+            style={{ width: `${progress}%` }}
           />
-        </div>
-      </div>
-
-      {/* 상단 질문 */}
-      <div className='text-center'>
-        <p className='text-lg font-semibold text-white'>
-          {currentQuestion.id} / {questions.length}
-        </p>
-        <h1 className='text-2xl font-bold text-white mt-2 font-[Danjo-bold-Regular]'>
-          {currentQuestion.question}
-        </h1>
-      </div>
-
-      {/* 이미지 */}
-      <div className='flex space-x-4'>
-        <Image
-          src='/images/test-wolf.png'
-          alt='First'
-          className='object-contain'
-          width={200}
-          height={250}
-        />
-        <Image
-          src='/images/test-wolf.png'
-          alt='Second'
-          className='object-contain'
-          width={200}
-          height={250}
-        />
-      </div>
-
-      {/* 선택지 버튼 */}
-      <div className='flex flex-col space-y-4 w-full px-4'>
-        {currentQuestion.answers.map((answer, index) => (
-          <button
-            key={index}
-            style={{ backgroundColor: 'black' }}
-            className='w-full px-6 py-4 text-white font-[Danjo-bold-Regular] text-lg border border-white rounded-md hover:bg-gray-800 hover:text-gray-300 transition-all duration-300'
-            onClick={() => handleAnswerClick(answer.text, answer.type)}
+          {/* 체리 아이콘 */}
+          <div
+            className='absolute top-1/2 transform -translate-y-1/2 transition-transform duration-500 ease-in-out'
+            style={{
+              left: `calc(${progress}% - 18px)`,
+            }}
           >
-            {answer.text}
-          </button>
-        ))}
+            <Image
+              src='/icons/icon-cherry.svg'
+              alt='Cherry'
+              width={30}
+              height={30}
+              className='object-contain'
+            />
+          </div>
+        </div>
+
+        {/* 상단 질문 */}
+        <div className='text-center'>
+          <p className='text-lg font-semibold text-white'>
+            {currentQuestion.id} / {questions.length}
+          </p>
+          <h1 className='text-2xl font-bold text-white mt-2 font-[Danjo-bold-Regular]'>
+            {currentQuestion.question}
+          </h1>
+        </div>
+
+        {/* 이미지 */}
+        <div className='flex flex-wrap justify-center gap-2 sm:gap-4'>
+          <div className='max-w-[45%]'>
+            <Image
+              src='/images/test-wolf.png'
+              alt='First'
+              className='object-contain w-full h-auto'
+              width={200}
+              height={250}
+            />
+          </div>
+          <div className='max-w-[45%]'>
+            <Image
+              src='/images/test-wolf.png'
+              alt='Second'
+              className='object-contain w-full h-auto'
+              width={200}
+              height={250}
+            />
+          </div>
+        </div>
+
+        {/* 선택지 버튼 */}
+        <div className='flex flex-col items-center justify-center space-y-3 w-full px-4'>
+          {currentQuestion.answers.map((answer, index) => (
+            <button
+              key={index}
+              className='w-full sm:max-w-sm px-6 py-3 text-white font-[Danjo-bold-Regular] text-sm sm:text-lg border border-white rounded-md hover:bg-gray-800 hover:text-gray-300 transition-all duration-300'
+              onClick={() => handleAnswerClick(answer.text, answer.type)}
+            >
+              {answer.text}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
