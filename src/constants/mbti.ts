@@ -67,6 +67,6 @@ export const mbtiPeople: Record<DetailedMbtiType, string[]> = {
   ISTP: ['은석(라이즈)', '도훈(투어스)'],
   ESFP: ['쇼타로(라이즈)', '재현(NCT)'],
   ESFJ: ['유우시(위시)', '성훈(엔하이픈)'],
-  ESTJ: ['민지(뉴진스)', '제이크(엔하이픈)'],
+  ESTJ: ['마키(앤팀)', '제이크(엔하이픈)'],
   ESTP: ['성찬(라이즈)', '태현(투바투)'],
 };
