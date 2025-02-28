@@ -16,7 +16,7 @@ export default function LandingPage() {
 
       <Link href='/username'>
         <button className='sm:px-6 px-4 sm:py-3 py-2 bg-white text-black font-medium sm:text-lg text-base rounded-md hover:bg-gray-300'>
-          Press Start
+          시작하기
         </button>
       </Link>
     </div>

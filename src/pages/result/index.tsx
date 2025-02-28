@@ -15,7 +15,7 @@ function ResultContent() {
 
   // 사용자 정보 (URL 파라미터에서 가져오기)
   const [username, setUsername] = useState('사용자');
-  const [profileImage, setProfileImage] = useState('/images/profile.png'); // 유저 프로필 이미지 유지
+  const [profileImage, setProfileImage] = useState('/images/profile.png');
   const [mbti, setMbti] = useState<DetailedMbtiType | '알 수 없음'>(
     '알 수 없음'
   );
@@ -45,7 +45,7 @@ function ResultContent() {
     if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams(window.location.search);
       const user = searchParams.get('username') || '사용자';
-      const userProfile = searchParams.get('profileImage'); // 유저 프로필 이미지 URL 가져오기
+      const userProfile = searchParams.get('profileImage');
       const mbtiType = searchParams.get('mbti')?.toUpperCase();
 
       if (
@@ -62,7 +62,7 @@ function ResultContent() {
 
       setUsername(user);
       if (userProfile) {
-        setProfileImage(userProfile); // 유저 프로필 이미지 업데이트
+        setProfileImage(userProfile);
       }
     }
   }, []);
@@ -117,7 +117,7 @@ function ResultContent() {
         const canvas = await html2canvas(storyRef.current);
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');
-        link.download = 'mbti-story.png';
+        link.download = 'ganeunghan.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -128,8 +128,8 @@ function ResultContent() {
   };
 
   return (
-    <div className='relative w-full h-screen flex justify-center items-center bg-white'>
-      <div className='relative w-full max-w-[600px] h-full bg-black text-white'>
+    <div className='relative w-full h-screen flex justify-center items-center bg-black'>
+      <div className='relative w-full sm:max-w-[600px] h-full text-white flex flex-col'>
         {/* 상단 프로그레스 바 */}
         <div className='absolute top-4 left-4 right-4 flex space-x-1 z-10 px-4'>
           {slides.map((_, index) => (
@@ -153,8 +153,7 @@ function ResultContent() {
             </div>
           ))}
         </div>
-
-        {/* 프로필 정보 & 닫기 버튼 */}
+        {/* 상단 프로필 정보 & 닫기 버튼 */}
         <div className='absolute top-8 left-4 right-4 flex items-center justify-between px-4 z-10'>
           <div className='flex items-center space-x-2'>
             <Image
@@ -162,39 +161,56 @@ function ResultContent() {
               alt='Profile'
               width={40}
               height={40}
-              className='rounded-full'
+              className='rounded-full sm:w-12 sm:h-12 w-8 h-8'
             />
-            <span className='text-m font-semibold'>{username}</span>
+            <span className='text-sm sm:text-base font-semibold'>
+              {username}
+            </span>
           </div>
           <Image
             src='/icons/close.svg'
             alt='Close'
             width={24}
             height={24}
-            className='cursor-pointer'
+            className='cursor-pointer sm:w-7 w-5'
             onClick={() => router.push('/')}
           />
         </div>
 
-        {/* 스토리 컨텐츠 (캡처 대상) */}
-        <div
-          ref={storyRef}
-          className='w-full h-full flex items-center justify-center p-4 relative bg-gray-800'
-        >
-          {slides[currentIndex].type === 'image' ? (
-            <Image
-              src={slides[currentIndex].src ?? '/images/test-main.png'} // 디폴트 이미지로 수정하기
-              alt='결과 이미지'
-              layout='fill'
-              objectFit='cover'
-              className='pointer-events-none'
-            />
+        {/* 스토리 컨텐츠 */}
+        <div ref={storyRef} className='relative w-full h-full'>
+          {currentIndex === 0 ? (
+            <>
+              {/* 데스크탑 */}
+              <div className='hidden sm:block absolute top-0 left-0 w-full h-full'>
+                <Image
+                  src='/images/test-cake-jo.png'
+                  alt='결과 이미지'
+                  layout='fill'
+                  objectFit='cover'
+                  className='w-full h-full'
+                />
+              </div>
+
+              {/* 모바일 */}
+              <div className='sm:hidden absolute top-0 left-0 w-full h-full'>
+                <Image
+                  src='/images/test-cake-jo-mobile.png'
+                  alt='결과 이미지'
+                  layout='fill'
+                  objectFit='cover'
+                  className='w-full h-full'
+                />
+              </div>
+            </>
           ) : (
-            <div className='text-center z-10'>
-              <h1 className='text-2xl font-bold'>
+            <div className='absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-center z-10 px-6'>
+              <h1 className='text-xl sm:text-2xl font-bold'>
                 {slides[currentIndex].title}
               </h1>
-              <p className='mt-2 text-lg'>{slides[currentIndex].description}</p>
+              <p className='mt-2 text-base sm:text-lg leading-relaxed max-w-[80%]'>
+                {slides[currentIndex].description}
+              </p>
             </div>
           )}
         </div>
@@ -207,6 +223,7 @@ function ResultContent() {
               alt='Previous'
               width={32}
               height={32}
+              className='sm:w-8 w-6'
             />
           </button>
         </div>
@@ -217,22 +234,36 @@ function ResultContent() {
               alt='Next'
               width={32}
               height={32}
+              className='sm:w-8 w-6'
             />
           </button>
         </div>
 
         {/* 하단 아이콘 (좋아요, 다운로드, 공유) */}
-        <div className='absolute bottom-6 left-0 right-0 flex justify-between px-10 z-10'>
-          <Image src='/icons/heart.svg' alt='Like' width={30} height={30} />
+        <div className='absolute bottom-6 left-0 right-0 flex justify-between px-6 sm:px-10 z-10'>
+          <Image
+            src='/icons/heart.svg'
+            alt='Like'
+            width={30}
+            height={30}
+            className='sm:w-8 w-6'
+          />
           <button onClick={handleSaveImage}>
             <Image
               src='/icons/icon-download.svg'
               alt='Download'
-              width={34}
-              height={34}
+              width={36}
+              height={36}
+              className='sm:w-8 w-6'
             />
           </button>
-          <Image src='/icons/plane.svg' alt='Share' width={30} height={30} />
+          <Image
+            src='/icons/plane.svg'
+            alt='Share'
+            width={30}
+            height={30}
+            className='sm:w-8 w-6'
+          />
         </div>
       </div>
     </div>
