@@ -34,16 +34,18 @@ export default function UsernamePage() {
     <div className='w-full p-6 flex flex-col justify-center items-center space-y-6'>
       <h1 className='text-2xl font-bold text-white'>이름을 입력해주세요</h1>
 
-      {/* ✅ 프로필 이미지 미리보기 */}
+      {/* 프로필 이미지 미리보기 */}
       <label htmlFor='profile-upload' className='cursor-pointer'>
-        <img
-          src={profileImage}
-          alt='Profile Preview'
-          className='w-36 h-36 rounded-full border-4 border-gray-400 object-cover'
-        />
+        <div className='w-36 h-36 rounded-full border-4 border-gray-400 overflow-hidden'>
+          <img
+            src={profileImage}
+            alt='Profile Preview'
+            className='w-full h-full object-cover scale-110 block'
+          />
+        </div>
       </label>
 
-      {/* ✅ 프로필 이미지 업로드 */}
+      {/* 프로필 이미지 업로드 */}
       <input
         type='file'
         id='profile-upload'

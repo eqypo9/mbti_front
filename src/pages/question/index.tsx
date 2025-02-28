@@ -78,49 +78,64 @@ export default function QuestionPage() {
 
   return (
     <div className='flex flex-col p-6 justify-center items-center space-y-6 w-full'>
-      {/* ✅ 진행률 바 */}
-      <div className='w-full bg-gray-800 h-2 rounded-full overflow-hidden'>
+      {/* 프로그레스 바 */}
+      <div className='relative w-full bg-gray-800 h-6 rounded-full overflow-hidden'>
+        {/* 진행되는 바 */}
         <div
-          className='bg-blue-500 h-full transition-all'
+          className='h-full bg-white transition-all duration-500 ease-in-out'
           style={{ width: `${progress}%` }}
         />
+
+        {/* 프로그레스 바 끝에 체리 아이콘 배치 */}
+        <div
+          className='absolute top-1/2 transform -translate-y-1/2 transition-all duration-500 ease-in-out'
+          style={{ left: `calc(${progress}% - 20px)` }} // 체리가 진행되는 느낌 구현
+        >
+          <Image
+            src='/icons/icon-cherry.svg'
+            alt='Cherry'
+            width={32}
+            height={32}
+            className='object-contain'
+          />
+        </div>
       </div>
 
-      {/* ✅ 상단 질문 */}
+      {/* 상단 질문 */}
       <div className='text-center'>
         <p className='text-lg font-semibold text-white'>
           {currentQuestion.id} / {questions.length}
         </p>
-        <h1 className='text-2xl font-bold text-white mt-2'>
+        <h1 className='text-2xl font-bold text-white mt-2 font-[Danjo-bold-Regular]'>
           {currentQuestion.question}
         </h1>
       </div>
 
-      {/* ✅ 이미지 */}
+      {/* 이미지 */}
       <div className='flex space-x-4'>
         <Image
-          src='/images/test-one.png'
-          alt='Sad'
+          src='/images/test-wolf.png'
+          alt='First'
           className='object-contain'
           width={200}
           height={250}
         />
         <Image
-          src='/images/test-two.png'
-          alt='Happy'
+          src='/images/test-wolf.png'
+          alt='Second'
           className='object-contain'
           width={200}
           height={250}
         />
       </div>
 
-      {/* ✅ 선택지 버튼 */}
+      {/* 선택지 버튼 */}
       <div className='flex flex-col space-y-4 w-full px-4'>
         {currentQuestion.answers.map((answer, index) => (
           <button
             key={index}
-            style={{ backgroundColor: answer.color }}
-            className='w-full px-6 py-3 text-white font-medium text-lg rounded-md hover:opacity-80'
+            style={{ backgroundColor: 'black' }}
+            className='w-full px-6 py-4 text-white font-[Danjo-bold-Regular] text-lg border border-white rounded-md hover:bg-gray-800 hover:text-gray-300 transition-all duration-300'
             onClick={() => handleAnswerClick(answer.text, answer.type)}
           >
             {answer.text}

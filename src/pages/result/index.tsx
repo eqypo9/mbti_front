@@ -13,7 +13,7 @@ function ResultContent() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const storyRef = useRef<HTMLDivElement>(null);
 
-  // ✅ 사용자 정보 (URL 파라미터에서 가져오기)
+  // 사용자 정보 (URL 파라미터에서 가져오기)
   const [username, setUsername] = useState('사용자');
   const [profileImage, setProfileImage] = useState('/images/profile.png'); // 유저 프로필 이미지 유지
   const [mbti, setMbti] = useState<DetailedMbtiType | '알 수 없음'>(
@@ -67,7 +67,7 @@ function ResultContent() {
     }
   }, []);
 
-  // ✅ 스토리 슬라이드 데이터
+  // 스토리 슬라이드 데이터
   const slides = [
     { type: 'image', src: '/images/test-cake-jo.png' },
     {
@@ -91,7 +91,7 @@ function ResultContent() {
     },
   ];
 
-  // ✅ 스토리 슬라이드 전환 기능
+  // 스토리 슬라이드 전환 기능
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
@@ -106,7 +106,7 @@ function ResultContent() {
     }
   };
 
-  // ✅ 이미지 다운로드 기능 (html2canvas 적용)
+  // 이미지 다운로드 기능 (html2canvas 적용)
   const handleSaveImage = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -130,7 +130,7 @@ function ResultContent() {
   return (
     <div className='relative w-full h-screen flex justify-center items-center bg-white'>
       <div className='relative w-full max-w-[600px] h-full bg-black text-white'>
-        {/* ✅ 상단 프로그레스 바 */}
+        {/* 상단 프로그레스 바 */}
         <div className='absolute top-4 left-4 right-4 flex space-x-1 z-10 px-4'>
           {slides.map((_, index) => (
             <div
@@ -154,7 +154,7 @@ function ResultContent() {
           ))}
         </div>
 
-        {/* ✅ 프로필 정보 & 닫기 버튼 */}
+        {/* 프로필 정보 & 닫기 버튼 */}
         <div className='absolute top-8 left-4 right-4 flex items-center justify-between px-4 z-10'>
           <div className='flex items-center space-x-2'>
             <Image
@@ -176,14 +176,14 @@ function ResultContent() {
           />
         </div>
 
-        {/* ✅ 스토리 컨텐츠 (캡처 대상) */}
+        {/* 스토리 컨텐츠 (캡처 대상) */}
         <div
           ref={storyRef}
           className='w-full h-full flex items-center justify-center p-4 relative bg-gray-800'
         >
           {slides[currentIndex].type === 'image' ? (
             <Image
-              src={slides[currentIndex].src}
+              src={slides[currentIndex].src ?? '/images/test-main.png'} // 디폴트 이미지로 수정하기
               alt='결과 이미지'
               layout='fill'
               objectFit='cover'
@@ -199,8 +199,8 @@ function ResultContent() {
           )}
         </div>
 
-        {/* ✅ 좌우 이동 버튼 (<> 스타일 아이콘) */}
-        <div className='absolute top-1/2 left-4 transform -translate-y-1/2 z-10'>
+        {/* 좌우 이동 버튼 */}
+        <div className='absolute top-1/2 left-0 transform -translate-y-1/2 z-10'>
           <button onClick={handlePrev}>
             <Image
               src='/icons/icon-left.svg'
@@ -221,15 +221,15 @@ function ResultContent() {
           </button>
         </div>
 
-        {/* ✅ 하단 아이콘 (좋아요, 다운로드, 공유) */}
+        {/* 하단 아이콘 (좋아요, 다운로드, 공유) */}
         <div className='absolute bottom-6 left-0 right-0 flex justify-between px-10 z-10'>
           <Image src='/icons/heart.svg' alt='Like' width={30} height={30} />
           <button onClick={handleSaveImage}>
             <Image
               src='/icons/icon-download.svg'
               alt='Download'
-              width={30}
-              height={30}
+              width={34}
+              height={34}
             />
           </button>
           <Image src='/icons/plane.svg' alt='Share' width={30} height={30} />

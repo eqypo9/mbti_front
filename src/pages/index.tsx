@@ -7,7 +7,7 @@ export default function LandingPage() {
       <h1 className='text-4xl font-bold text-white'>GANEUNGHAN</h1>
 
       <Image
-        src='/images/test-main.png'
+        src='/images/test-wolf.png'
         alt='Main'
         width={240}
         height={240}
