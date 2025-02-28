@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useProfileImage } from '@/hooks/useProfileImage';
 import { useUsername } from '@/hooks/useUsername';
 import { useState } from 'react';
@@ -26,10 +27,13 @@ export default function UsernamePage() {
       >
         {/* 프로필 이미지 박스 */}
         <div className='sm:w-36 w-28 sm:h-36 h-28 rounded-full border-4 border-gray-400 overflow-hidden relative'>
-          <img
+          <Image
             src={profileImage}
             alt='Profile Preview'
-            className='w-full h-full object-cover scale-110 block'
+            layout='fill'
+            objectFit='cover'
+            className='scale-110'
+            unoptimized
           />
 
           <div
