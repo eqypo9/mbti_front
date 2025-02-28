@@ -26,7 +26,7 @@ export default function Document() {
           content='내 MBTI를 알아보고, 최고의 궁합 아이돌과 함께하는 특별한 케이크 이미지를 저장하세요! 인스타 스토리 레이아웃으로 결과를 확인할 수 있어요.'
         />
         {/* 수정하기 */}
-        <meta property='og:image' content='/images/og-image.png' />
+        <meta property='og:image' content='/images/test-cake-jo.png' />
         <meta property='og:url' content='https://ganeounghan.com' />
         <meta property='og:type' content='website' />
         {/* Twitter Card 메타 태그 */}
@@ -37,7 +37,7 @@ export default function Document() {
           content='내 MBTI를 알아보고, 나와 최고의 궁합 아이돌과 함께하는 특별한 케이크 이미지를 만들어 보세요!'
         />
         {/* 수정하기 */}
-        <meta name='twitter:image' content='/images/og-image.png' />
+        <meta name='twitter:image' content='/images/test-cake-jo.png' />
         <meta name='twitter:site' content='@ganeounghan' />
         {/* Favicon & 애플 아이콘 */}
         {/* 수정하기 */}
@@ -45,7 +45,7 @@ export default function Document() {
         <link
           rel='apple-touch-icon'
           sizes='180x180'
-          href='/apple-touch-icon.png' // 수정하기
+          href='/apple-test-cake-jo.png' // 수정하기
         />
       </Head>
       <body>
