@@ -32,7 +32,9 @@ export default function UsernamePage() {
 
   return (
     <div className='w-full p-6 flex flex-col justify-center items-center space-y-6'>
-      <h1 className='text-2xl font-bold text-white'>이름을 입력해주세요</h1>
+      <h1 className='text-2xl font-bold text-white'>
+        소녀의 이름은 무엇인가요?
+      </h1>
 
       {/* 프로필 이미지 미리보기 */}
       <label htmlFor='profile-upload' className='cursor-pointer'>

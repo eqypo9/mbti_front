@@ -86,11 +86,12 @@ export default function QuestionPage() {
             className='h-full bg-white transition-all duration-500 ease-in-out'
             style={{ width: `${progress}%` }}
           />
+
           {/* 체리 아이콘 */}
           <div
-            className='absolute top-1/2 transform -translate-y-1/2 transition-transform duration-500 ease-in-out'
+            className='absolute top-1/2 transform -translate-y-1/2 transition-all duration-500 ease-in-out'
             style={{
-              left: `calc(${progress}% - 18px)`,
+              left: `calc(${progress}% - 15px)`,
             }}
           >
             <Image
