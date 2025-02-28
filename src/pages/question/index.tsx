@@ -77,57 +77,55 @@ export default function QuestionPage() {
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
-    <div className='min-h-screen bg-white flex items-center justify-center'>
-      <div className='w-full max-w-[600px] h-[720px] bg-[#87ceeb] p-6 flex flex-col justify-center items-center space-y-6'>
-        {/* 진행률 바 */}
-        <div className='w-full bg-white h-4 rounded-md overflow-hidden'>
-          <div
-            className='bg-blue-600 h-full transition-all'
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+    <div className='flex flex-col p-6 justify-center items-center space-y-6 w-full'>
+      {/* ✅ 진행률 바 */}
+      <div className='w-full bg-gray-800 h-2 rounded-full overflow-hidden'>
+        <div
+          className='bg-blue-500 h-full transition-all'
+          style={{ width: `${progress}%` }}
+        />
+      </div>
 
-        {/* 상단 질문 */}
-        <div className='text-center'>
-          <p className='text-lg font-semibold'>
-            {currentQuestion.id} / {questions.length}
-          </p>
-          <h1 className='text-2xl font-bold text-gray-900 mt-2'>
-            {currentQuestion.question}
-          </h1>
-        </div>
+      {/* ✅ 상단 질문 */}
+      <div className='text-center'>
+        <p className='text-lg font-semibold text-white'>
+          {currentQuestion.id} / {questions.length}
+        </p>
+        <h1 className='text-2xl font-bold text-white mt-2'>
+          {currentQuestion.question}
+        </h1>
+      </div>
 
-        {/* 이미지 */}
-        <div className='flex space-x-4'>
-          <Image
-            src='/images/test-one.png'
-            alt='Sad'
-            className='object-contain'
-            width={240}
-            height={300}
-          />
-          <Image
-            src='/images/test-two.png'
-            alt='Happy'
-            className='object-contain'
-            width={240}
-            height={300}
-          />
-        </div>
+      {/* ✅ 이미지 */}
+      <div className='flex space-x-4'>
+        <Image
+          src='/images/test-one.png'
+          alt='Sad'
+          className='object-contain'
+          width={200}
+          height={250}
+        />
+        <Image
+          src='/images/test-two.png'
+          alt='Happy'
+          className='object-contain'
+          width={200}
+          height={250}
+        />
+      </div>
 
-        {/* 선택지 버튼 */}
-        <div className='flex flex-col space-y-4'>
-          {currentQuestion.answers.map((answer, index) => (
-            <button
-              key={index}
-              style={{ backgroundColor: answer.color }}
-              className='px-6 py-3 text-white font-medium text-lg rounded-md hover:opacity-90'
-              onClick={() => handleAnswerClick(answer.text, answer.type)}
-            >
-              {answer.text}
-            </button>
-          ))}
-        </div>
+      {/* ✅ 선택지 버튼 */}
+      <div className='flex flex-col space-y-4 w-full px-4'>
+        {currentQuestion.answers.map((answer, index) => (
+          <button
+            key={index}
+            style={{ backgroundColor: answer.color }}
+            className='w-full px-6 py-3 text-white font-medium text-lg rounded-md hover:opacity-80'
+            onClick={() => handleAnswerClick(answer.text, answer.type)}
+          >
+            {answer.text}
+          </button>
+        ))}
       </div>
     </div>
   );
