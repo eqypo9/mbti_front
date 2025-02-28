@@ -1,5 +1,5 @@
 import { useProfileImage } from '@/hooks/useProfileImage';
-import { useUsername } from '@/hooks/useUserName';
+import { useUsername } from '@/hooks/useUsername';
 import { useState } from 'react';
 
 export default function UsernamePage() {

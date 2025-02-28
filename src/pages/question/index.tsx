@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMbti } from '@/hooks/useMbti';
-import ProgressBar from '@/components/ProgressBar';
+import ProgressBar from '@/components/ProgressBar/QuestionProgress';
 import QuestionCard from '@/components/QuestionCard';
-import AnswerButtons from '@/components/AnswerButtons';
+import AnswerButtons from '@/components/Button/AnswerButtons';
 import { questions } from '@/data/questions';
 import Image from 'next/image';
 
