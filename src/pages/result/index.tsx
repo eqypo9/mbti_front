@@ -1,33 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { DetailedMbtiType, mbtiMatches, mbtiPeople } from '@/constants/mbti';
-import html2canvas from 'html2canvas';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { DetailedMbtiType, mbtiMatches, mbtiPeople } from '@/constants/mbti';
 
 export default function ResultPage() {
   return <ResultContent />;
 }
 
 function ResultContent() {
+  const router = useRouter();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const storyRef = useRef<HTMLDivElement>(null);
+
+  // 사용자 정보
   const [username, setUsername] = useState('사용자');
-  const [best, setBest] = useState<string[]>([]);
-  const [worst, setWorst] = useState<string[]>([]);
-  const [rectBgColor, setRectBgColor] = useState('#ffffff');
-  const captureRef = useRef<HTMLDivElement>(null);
-
-  const colorPalette = [
-    '#ffffff',
-    '#f87171',
-    '#fbbf24',
-    '#34d399',
-    '#60a5fa',
-    '#c084fc',
-    '#f472b6',
-  ];
-
   const [mbti, setMbti] = useState<DetailedMbtiType | '알 수 없음'>(
     '알 수 없음'
   );
+  const [best, setBest] = useState<string[]>([]);
+  const [worst, setWorst] = useState<string[]>([]);
+
   const validDetailedMbtiTypes: DetailedMbtiType[] = [
     'INTJ',
     'INTP',
@@ -69,102 +61,165 @@ function ResultContent() {
     }
   }, []);
 
-  const handleSaveImage = async () => {
-    if (captureRef.current) {
-      const canvas = await html2canvas(captureRef.current, {
-        backgroundColor: rectBgColor,
-      });
-      const link = document.createElement('a');
-      link.download = 'result-rectangle.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+  // 페이지 데이터 (이미지 & MBTI 해설)
+  const slides = [
+    { type: 'image', src: '/images/test-cake-jo.png' },
+    {
+      type: 'text',
+      title: `${username}님의 MBTI 결과`,
+      description: `당신의 MBTI는 ${mbti} 입니다. 그래서 님같은 엠비티아이 유형은 이러쿵 저러쿵 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트`,
+    },
+    {
+      type: 'text',
+      title: '최고의 궁합',
+      description: best.length
+        ? `당신과 가장 잘 맞는 MBTI는 ${best.join(', ')} 입니다!`
+        : '데이터 없음',
+    },
+    {
+      type: 'text',
+      title: '최악의 궁합',
+      description: worst.length
+        ? `가장 안 맞는 MBTI는 ${worst.join(', ')} 입니다!`
+        : '데이터 없음',
+    },
+  ];
+
+  const totalSlides = slides.length;
+
+  // 이전 스토리로 이동
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
     }
   };
 
-  return (
-    <div className='min-h-screen bg-white flex items-center justify-center'>
-      <div className='w-full max-w-[600px] h-auto bg-[#87ceeb] p-6 flex flex-col items-center space-y-6'>
-        {/* 결과 제목 */}
-        <h1 className='text-4xl font-bold text-gray-900'>결과</h1>
-        <p className='text-2xl font-semibold text-center'>
-          <span className='text-blue-600'>{username}</span>님의 MBTI는{' '}
-          <span className='text-blue-600'>{mbti}</span>입니다!
-        </p>
+  // 다음 스토리로 이동
+  const handleNext = () => {
+    if (currentIndex < slides.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    } else {
+      router.push('/'); // 마지막 페이지면 홈으로 이동
+    }
+  };
 
-        {/* 케이크 이미지와 배경 */}
-        <div className='w-full flex flex-col items-center space-y-4 p-4'>
-          <div
-            ref={captureRef}
-            className='w-360 h-360 flex justify-center items-center rounded-md p-4'
-            style={{ backgroundColor: rectBgColor }}
-          >
+  // 이미지 다운로드 기능 (이벤트 전파 방지 추가)
+  const handleSaveImage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); // 부모 요소로 이벤트 전파 방지
+
+    const imageUrl = '/images/test-cake-jo.png'; // 저장할 이미지 경로
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = 'test-cake-jo.png'; // 다운로드될 파일명
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <div className='relative w-full h-screen flex justify-center items-center bg-white'>
+      {/* 중앙 고정된 스토리 화면 */}
+      <div className='relative w-full max-w-[600px] h-full bg-black text-white'>
+        {/* 상단 프로그레스 바 */}
+        <div className='absolute top-4 left-4 right-4 flex space-x-1 z-10 px-4'>
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              className='h-1 bg-gray-600 rounded-full overflow-hidden flex-1'
+            >
+              <div
+                className={`h-full ${
+                  index <= currentIndex ? 'bg-white' : 'bg-gray-600'
+                } transition-all duration-500 ease-in-out`}
+                style={{
+                  width:
+                    index === currentIndex
+                      ? '100%'
+                      : index < currentIndex
+                      ? '100%'
+                      : '0%',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* 프로필 정보 & 닫기 아이콘 */}
+        <div className='absolute top-8 left-4 right-4 flex items-center justify-between px-4 z-10'>
+          <div className='flex items-center space-x-2'>
             <Image
-              src='/images/test-cake-jo.png'
-              alt='테스트 케이크'
-              width={360}
-              height={360}
+              src='/images/profile.png'
+              alt='Profile'
+              width={40}
+              height={40}
+              className='rounded-full'
+            />
+            <span className='text-m font-semibold'>{username}</span>
+          </div>
+          <div className='flex items-center space-x-3'>
+            {/* 닫기 아이콘 */}
+            <Image
+              src='/icons/close.svg'
+              alt='Close'
+              width={24}
+              height={24}
+              className='cursor-pointer'
+              onClick={() => router.push('/')} // 닫기 클릭 시 홈으로 이동
             />
           </div>
         </div>
 
-        {/* 팔레트 선택 및 저장 버튼 */}
-        <div className='w-full flex flex-col items-center space-y-4'>
-          <label htmlFor='rect-bg-color' className='text-lg font-bold'>
-            테두리 선택
-          </label>
-          <div className='flex space-x-2'>
-            {colorPalette.map((color, index) => (
-              <button
-                key={index}
-                onClick={() => setRectBgColor(color)}
-                className='w-8 h-8 rounded-full border-2'
-                style={{
-                  backgroundColor: color,
-                  borderColor: rectBgColor === color ? '#000' : 'transparent',
-                }}
+        {/* 스토리 컨텐츠 */}
+        <div
+          ref={storyRef}
+          className='w-full h-full flex items-center justify-center p-4 relative'
+        >
+          <div
+            className='absolute top-0 left-0 w-1/2 h-full cursor-pointer z-20'
+            onClick={handlePrev}
+          />
+          <div
+            className='absolute top-0 right-0 w-1/2 h-full cursor-pointer z-20'
+            onClick={handleNext}
+          />
+
+          {slides[currentIndex].type === 'image' ? (
+            <div className='absolute top-0 left-0 w-full h-full pointer-events-none z-0'>
+              <Image
+                src={slides[currentIndex].src}
+                alt='결과 이미지'
+                layout='fill'
+                objectFit='cover'
+                className='pointer-events-none'
               />
-            ))}
-          </div>
-
-          <button
-            onClick={handleSaveImage}
-            className='px-4 py-2 bg-green-500 text-white font-medium text-sm rounded-md hover:bg-green-600'
-          >
-            이미지 저장하기
-          </button>
+            </div>
+          ) : (
+            <div className='text-center z-10'>
+              <h1 className='text-2xl font-bold'>
+                {slides[currentIndex].title}
+              </h1>
+              <p className='mt-2 text-lg'>{slides[currentIndex].description}</p>
+            </div>
+          )}
         </div>
 
-        {/* 궁합 섹션 */}
-        <div className='flex w-full justify-center items-start space-x-12 p-4'>
-          <div className='w-1/2 text-center'>
-            <h2 className='text-lg font-bold mb-2'>최고의 궁합:</h2>
-            <ul className='text-sm space-y-2'>
-              {best.map((person, index) => (
-                <li key={index} className='text-blue-700'>
-                  {person}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className='w-1/2 text-center'>
-            <h2 className='text-lg font-bold mb-2'>최악의 궁합:</h2>
-            <ul className='text-sm space-y-2'>
-              {worst.map((person, index) => (
-                <li key={index} className='text-red-700'>
-                  {person}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* 다시 테스트하기 버튼 */}
-        <Link href='/'>
-          <button className='px-6 py-3 bg-black text-white font-medium text-lg rounded-md hover:bg-gray-800'>
-            다시 테스트하기
+        {/* 하단 아이콘 및 저장 버튼 */}
+        <div className='absolute bottom-6 left-0 right-0 flex justify-between px-10 z-10'>
+          <button className='text-white text-2xl'>
+            <Image src='/icons/heart.svg' alt='Like' width={24} height={24} />
           </button>
-        </Link>
+          <button className='text-white text-2xl' onClick={handleSaveImage}>
+            <Image
+              src='/icons/icon-download.svg'
+              alt='Download'
+              width={30}
+              height={30}
+            />
+          </button>
+          <button className='text-white text-2xl'>
+            <Image src='/icons/plane.svg' alt='Share' width={24} height={24} />
+          </button>
+        </div>
       </div>
     </div>
   );
