@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function useUsername(profileImage: string) {
+export function useUsername(profileImage: string) {
   const [name, setName] = useState('');
   const router = useRouter();
 

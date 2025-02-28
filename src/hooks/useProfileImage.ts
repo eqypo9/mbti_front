@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function useProfileImage(defaultImage = '/images/profile.png') {
+export function useProfileImage(defaultImage = '/images/profile.png') {
   const [profileImage, setProfileImage] = useState(defaultImage);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
