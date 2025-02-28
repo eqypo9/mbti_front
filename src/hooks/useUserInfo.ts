@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { DetailedMbtiType, mbtiMatches, mbtiPeople } from '@/constants/mbti';
 
 export function useUserInfo() {
