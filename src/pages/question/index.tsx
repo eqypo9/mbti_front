@@ -19,8 +19,8 @@ export default function QuestionPage() {
   const { currentQuestion, handleAnswerClick, progress } = useMbti(username);
 
   return (
-    <div className='relative w-full flex justify-center items-center'>
-      <div className='flex flex-col justify-center items-center p-6 space-y-6'>
+    <div className='w-full min-h-screen flex flex-col justify-center items-center bg-black'>
+      <div className="relative max-w-[600px] w-full min-h-[600px] bg-[url('/images/test-bg-cherry.png')] bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center p-6 space-y-6">
         <ProgressBar progress={progress} />
         <QuestionCard
           questionId={currentQuestion.id}
