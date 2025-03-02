@@ -41,7 +41,7 @@ export function SlideContent({ currentSlide }: SlideContentProps) {
           <h1 className='text-xl sm:text-2xl font-bold'>
             {currentSlide.title}
           </h1>
-          <p className='mt-2 text-base sm:text-lg leading-relaxed max-w-[80%]'>
+          <p className='mt-2 text-base sm:text-lg leading-relaxed max-w-[80%] font-galmuri'>
             {currentSlide.description}
           </p>
         </div>

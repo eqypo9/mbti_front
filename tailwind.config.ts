@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Ownglyph_ParkDaHyun', 'Arial', 'Helvetica', 'sans-serif'], 
+        pretendard: ['Pretendard', 'sans-serif'],
+        galmuri: ['Galmuri11', 'sans-serif'],
       },
       colors: {
         background: 'var(--background)',

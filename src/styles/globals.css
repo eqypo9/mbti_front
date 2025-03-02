@@ -18,14 +18,8 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Galmuri11';
-  src: url('/galmuri11.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
+@import url('galmuri/dist/galmuri.css');
 
-/* 기본 폰트 설정 */
 :root {
   --background: #ffffff;
   --foreground: #171717;

@@ -11,10 +11,10 @@ export default function QuestionCard({
 }: QuestionCardProps) {
   return (
     <div className='text-center'>
-      <p className='text-sm sm:text-lg font-semibold text-white'>
+      <p className='text-sm sm:text-lg text-white font-galmuri'>
         {questionId} / {totalQuestions}
       </p>
-      <h1 className='text-base sm:text-2xl text-white mt-1 sm:mt-2'>
+      <h1 className='text-base sm:text-2xl text-white mt-1 sm:mt-2 font-galmuri'>
         {questionText}
       </h1>
     </div>
